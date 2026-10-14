@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Portfolio">
+	<div class="page-container">
+		<div class="container">
+			<h1 class="heading-2 page-title">Selected Work.</h1>
+            <p class="text-muted" style="max-width: 700px; margin-bottom: 4rem;">
+                A mix of engineered systems, CAD explorations, and visual design work—from a modified desktop bioprinter to LEGO architecture studies and event visuals.
+            </p>
+			
+			<div class="portfolio-grid">
+				<div class="project-card">
+					<div class="project-image" style="background: linear-gradient(135deg, rgba(129,140,248,0.2), #1a1a1a)"></div>
+					<div class="project-info">
+						<h3 style="color: #818cf8">Modified mSLA Bioprinter</h3>
+						<p>Custom mounts, thermal control, and manufacturing workflow for a lab-ready desktop bioprinter.</p>
+					</div>
+				</div>
+				
+				<div class="project-card">
+					<div class="project-image" style="background: linear-gradient(135deg, rgba(192,132,252,0.2), #1a1a1a)"></div>
+					<div class="project-info">
+						<h3 style="color: #c084fc">Ponte Vecchio LEGO CAD</h3>
+						<p>A digital LEGO reconstruction of Florence’s Ponte Vecchio, balancing accuracy, structure, and brick efficiency.</p>
+					</div>
+				</div>
+
+                <div class="project-card">
+					<div class="project-image" style="background: linear-gradient(135deg, rgba(34,211,238,0.2), #1a1a1a)"></div>
+					<div class="project-info">
+						<h3 style="color: #22d3ee">Visual & Event Design</h3>
+						<p>Posters, event visuals, and on-site support for experiences like Abu Dhabi Art Fair, keeping information clear and welcoming.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.page-container {
+		padding: 6rem 0;
+	}
+
+	.portfolio-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: 3rem;
+	}
+
+	.project-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		cursor: pointer;
+        padding: 1.5rem;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 16px;
+        transition: transform 0.3s ease, background 0.3s ease;
+	}
+
+    .project-card:hover {
+        background: rgba(255,255,255,0.04);
+        transform: translateY(-5px);
+    }
+
+	.project-card:hover .project-image {
+		transform: scale(0.98);
+		filter: brightness(1.2);
+	}
+
+	.project-image {
+		width: 100%;
+		aspect-ratio: 16/10;
+		background: #1a1a1a;
+		border-radius: 12px;
+		transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.project-info h3 {
+		font-size: 1.4rem;
+		margin: 0 0 0.8rem 0;
+		font-weight: 500;
+	}
+
+	.project-info p {
+		color: var(--muted-color);
+		margin: 0;
+		font-size: 1rem;
+        line-height: 1.5;
+	}
+</style>

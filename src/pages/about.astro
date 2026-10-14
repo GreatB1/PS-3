@@ -1,0 +1,176 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About">
+	<div class="page-container">
+		<div class="container">
+			<h1 class="heading-2 page-title">About Me.</h1>
+			
+			<div class="content-grid">
+				<div class="text-block">
+					<p class="text-muted">
+						I’m a mechanical engineer and visual thinker who loves turning ideas into precise designs and memorable visuals. From bioprinters to bridge models, I enjoy building things that work well and look good.
+					</p>
+					
+                    <div class="snapshot-card">
+                        <h3>Snapshot</h3>
+                        <ul>
+                            <li>Designing mechanical systems with both function and form in mind.</li>
+                            <li>Creating clean, modern visuals for presentations and brands.</li>
+                            <li>Building precise CAD models that bring concepts to life.</li>
+                        </ul>
+                    </div>
+				</div>
+				<div class="image-block">
+					<div class="placeholder-image" style="background-image: url('/images/hero-new.jpg'); background-size: cover; background-position: center;"></div>
+				</div>
+			</div>
+
+            <div class="skills-matrix">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">CAD Modeling</span>
+                        <span class="skill-tag">Mechanical Fabrication & Assembly</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">3D Printing</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Web Development</span>
+                        <span class="skill-tag">Graphic Design</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Tools & Software</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Solidworks</span>
+                        <span class="skill-tag">Bricklink Studio</span>
+                        <span class="skill-tag">Arduino IDE</span>
+                        <span class="skill-tag">Canva</span>
+                        <span class="skill-tag">Google Suite</span>
+                        <span class="skill-tag">Microsoft Excel</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Leadership & Mentorship</span>
+                        <span class="skill-tag">Analytical Thinking</span>
+                        <span class="skill-tag">Creative Problem Solving</span>
+                        <span class="skill-tag">Adaptability</span>
+                        <span class="skill-tag">Active Listening</span>
+                        <span class="skill-tag">Technical Writing</span>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.page-container {
+		padding: 6rem 0;
+	}
+
+	.page-title {
+		margin-bottom: 4rem;
+	}
+
+	.content-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 6rem;
+		align-items: center;
+	}
+
+	.text-block {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+    .snapshot-card {
+        padding: 2rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px;
+        margin-top: 1rem;
+    }
+
+    .snapshot-card h3 {
+        margin: 0 0 1rem 0;
+        font-size: 1.2rem;
+        color: var(--text-color);
+    }
+
+    .snapshot-card ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--muted-color);
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+	.image-block {
+		width: 100%;
+		aspect-ratio: 4/5;
+	}
+
+	.placeholder-image {
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(45deg, #111, #222);
+		border-radius: 20px;
+		position: relative;
+		overflow: hidden;
+	}
+
+    .skills-matrix {
+        margin-top: 6rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+
+    .skill-category h3 {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 0.8rem;
+    }
+
+    .skills-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .skill-tag {
+		padding: 0.8rem 1.2rem;
+		background: rgba(255,255,255,0.02);
+		border-radius: 8px;
+		font-size: 0.95rem;
+		color: var(--muted-color);
+        transition: background 0.3s ease;
+	}
+
+    .skill-tag:hover {
+        background: rgba(255,255,255,0.05);
+        color: var(--text-color);
+    }
+
+	@media (max-width: 900px) {
+		.content-grid {
+			grid-template-columns: 1fr;
+			gap: 4rem;
+		}
+        .skills-matrix {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+	}
+</style>

@@ -1,0 +1,728 @@
+---
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Flevin Baraka</title>
+		<ClientRouter />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Merienda:wght@400;500;700;800&family=Tangerine:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script
+			is:inline
+			src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"
+		></script>
+	</head>
+	<body>
+		<div id="particles-js" transition:persist="particles"></div>
+		<nav class="navbar" transition:persist="nav">
+			<div class="nav-container">
+				<a href="/" class="brand-logo">
+					<img
+						src="/images/Home_icon.png"
+						alt="Home"
+						onerror="this.style.display='none'; this.parentElement.innerText='Flevin.'"
+					/>
+				</a>
+
+				<ul class="nav-links hide-on-mobile">
+					<li><a href="/">Home</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/portfolio">Portfolio</a></li>
+					<li><a href="/contact">Contact</a></li>
+				</ul>
+
+				<!-- Mobile Hamburger Button -->
+				<button class="mobile-menu-btn" aria-label="Toggle Menu">
+					<span class="hamburger-line"></span>
+					<span class="hamburger-line"></span>
+					<span class="hamburger-line"></span>
+				</button>
+			</div>
+		</nav>
+
+		<!-- Full Screen Mobile Overlay Menu -->
+		<div class="mobile-menu-overlay" transition:persist="mobile-menu">
+			<ul class="mobile-nav-links">
+				<li><a href="/">Home</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/portfolio">Portfolio</a></li>
+				<li><a href="/contact">Contact</a></li>
+			</ul>
+		</div>
+
+		<main id="main-content">
+			<slot />
+		</main>
+
+		<script>
+			import { gsap } from "gsap";
+
+			const gridRes = 4; // Optimized from 25 clones to 16 clones instantly mitigating DOM-cloning thread blocking delay!
+
+			// 1. EXIT ANIMATION: Intercept Astro's native navigation to run perfectly parallel!
+			document.addEventListener("astro:before-preparation", (e) => {
+				const originalLoader = e.loader;
+				e.loader = async function () {
+					const el = document.getElementById("main-content");
+					if (!el) return await originalLoader(); // Fallback safely
+
+					const rect = el.getBoundingClientRect();
+					const gridContainer = document.createElement("div");
+					gridContainer.style.position = "absolute";
+					gridContainer.style.top = rect.top + window.scrollY + "px";
+					gridContainer.style.left =
+						rect.left + window.scrollX + "px";
+					gridContainer.style.width = rect.width + "px";
+					gridContainer.style.height = rect.height + "px";
+					gridContainer.style.zIndex = "999";
+					gridContainer.style.pointerEvents = "none";
+
+					// Pre-calculate Hero Image exact bounds natively skipping intrinsic size collapses!
+					const origHeroImg = el.querySelector(".hero-img");
+					const heroBounds = origHeroImg
+						? origHeroImg.getBoundingClientRect()
+						: null;
+
+					el.style.opacity = "0";
+
+					/** @type {any[]} */
+					const cells = [];
+					const cW = rect.width / gridRes;
+					const cH = rect.height / gridRes;
+
+					for (let r = 0; r < gridRes; r++) {
+						for (let c = 0; c < gridRes; c++) {
+							/** @type {any} */
+							const clone = el.cloneNode(true);
+
+							// WebKit GPU Bugfix: Nested mask-image inside clip-path obliterates elements!
+							// Strategically strips nested alpha masks and 3D perspectives from clones to guarantee 2D rendering!
+							const wrappers = clone.querySelectorAll(
+								".hero-image-wrapper",
+							);
+							for (let m = 0; m < wrappers.length; m++) {
+								wrappers[m].style.perspective = "none";
+							}
+							const heroImgs =
+								clone.querySelectorAll(".hero-img");
+							for (let m = 0; m < heroImgs.length; m++) {
+								heroImgs[m].style.maskImage = "none";
+								heroImgs[m].style.webkitMaskImage = "none";
+								heroImgs[m].style.transform = "none";
+
+								// Physically hard-stamp geometry preventing 0x0 flexbox collapse bug perfectly!
+								if (heroBounds) {
+									heroImgs[m].style.width =
+										heroBounds.width + "px";
+									heroImgs[m].style.height =
+										heroBounds.height + "px";
+									heroImgs[m].style.maxWidth = "none";
+									heroImgs[m].style.maxHeight = "none";
+									heroImgs[m].style.flex = "none";
+								}
+							} // Strip GSAP 3D rotations forcefully preventing GPU clipping culls!
+
+							// Force GPU layer priority resolving disappearing high-res images directly within absolute arrays dynamically!
+							const allImgs = clone.querySelectorAll("img");
+							for (let m = 0; m < allImgs.length; m++) {
+								allImgs[m].style.visibility = "visible";
+								allImgs[m].style.opacity = "1";
+								allImgs[m].removeAttribute("loading");
+								allImgs[m].style.transform = "none"; // WebKit prefers absolutely flat bitmaps inside clip-paths!
+							}
+
+							// CRITICAL: Force strictly 2D bounding boxes across ALL GSAP animated parents!
+							// GSAP optimizes 'y' transistions into literal `transform: translate3d(..)`.
+							// Intersecting translate3d with clip-path geometrically culls the entire branch in Chromium GPUs!
+							const reveals =
+								clone.querySelectorAll(".gs-reveal");
+							for (let m = 0; m < reveals.length; m++) {
+								reveals[m].style.transform = "none";
+								reveals[m].style.opacity = "1";
+							}
+
+							clone.style.opacity = "1";
+							clone.style.position = "absolute";
+							clone.style.transform = "none";
+							clone.style.margin = "0";
+							clone.style.boxSizing = "border-box";
+							clone.style.top = "0px";
+							clone.style.left = "0px";
+							clone.style.width = rect.width + "px";
+							clone.style.height = rect.height + "px";
+							clone.style.willChange =
+								"transform, opacity, clip-path";
+
+							const currentTop = r * cH;
+							const currentLeft = c * cW;
+							clone.style.clipPath = `inset(${currentTop}px ${rect.width - (currentLeft + cW)}px ${rect.height - (currentTop + cH)}px ${currentLeft}px)`;
+
+							gridContainer.appendChild(clone);
+							cells.push(clone);
+						}
+					}
+					document.body.appendChild(gridContainer);
+
+					/** @type {Promise<void>} */
+					const exitPromise = new Promise((resolve) => {
+						gsap.to(cells, {
+							scale: 0.5,
+							opacity: 0,
+							x: -window.innerWidth * 0.3,
+							y: window.innerHeight * 0.3,
+							duration: 0.5, // Increased discrete speed
+							stagger: {
+								amount: 0.2,
+								grid: [gridRes, gridRes],
+								from: gridRes - 1,
+							}, // Dropped stagger delay heavily so pieces react instantly
+							ease: "power2.in", // Changed from power4.in which mathematically caused initial 0-velocity 'hangs'
+							onComplete: () => {
+								gridContainer.remove();
+								resolve();
+							},
+						});
+					});
+
+					// Await BOTH the network fetch AND the exit GSAP math seamlessly
+					// Resolves the exact reason for the 'double-view' routing overlap and the 'hang' pause!
+					await Promise.all([exitPromise, originalLoader()]);
+				};
+			});
+
+			// 2. Prevent the incoming ghost snapshot flash during the DOM swap lifecycle
+			document.addEventListener("astro:before-swap", (e) => {
+				const newMain = e.newDocument.getElementById("main-content");
+				if (newMain) newMain.style.opacity = "0";
+			});
+
+			// 3. ENTRANCE ANIMATION: Rises identically out of the ashes natively
+			document.addEventListener("astro:page-load", () => {
+				const el = document.getElementById("main-content");
+				// ONLY trigger dynamic arrivals on internal SPA swaps, skip default server loads!
+				if (el && el.style.opacity === "0") {
+					const rect = el.getBoundingClientRect();
+					const gridContainer = document.createElement("div");
+					gridContainer.style.position = "absolute";
+					gridContainer.style.top = rect.top + window.scrollY + "px";
+					gridContainer.style.left =
+						rect.left + window.scrollX + "px";
+					gridContainer.style.width = rect.width + "px";
+					gridContainer.style.height = rect.height + "px";
+					gridContainer.style.zIndex = "999";
+					gridContainer.style.pointerEvents = "none";
+
+					// Pre-calculate Hero Image exact bounds natively skipping intrinsic size collapses!
+					const origHeroImg = el.querySelector(".hero-img");
+					const heroBounds = origHeroImg
+						? origHeroImg.getBoundingClientRect()
+						: null;
+
+					/** @type {any[]} */
+					const cells = [];
+					const cW = rect.width / gridRes;
+					const cH = rect.height / gridRes;
+
+					for (let r = 0; r < gridRes; r++) {
+						for (let c = 0; c < gridRes; c++) {
+							/** @type {any} */
+							const clone = el.cloneNode(true);
+
+							// WebKit GPU Bugfix: Nested mask-image inside clip-path obliterates elements!
+							// Strategically strips nested alpha masks from clones to guarantee rendering
+							const heroImgs =
+								clone.querySelectorAll(".hero-img");
+							for (let m = 0; m < heroImgs.length; m++) {
+								heroImgs[m].style.maskImage = "none";
+								heroImgs[m].style.webkitMaskImage = "none";
+							}
+
+							clone.style.opacity = "1";
+							clone.style.position = "absolute";
+							clone.style.transform = "none";
+							clone.style.margin = "0";
+							clone.style.boxSizing = "border-box";
+							clone.style.top = "0px";
+							clone.style.left = "0px";
+							clone.style.width = rect.width + "px";
+							clone.style.height = rect.height + "px";
+							clone.style.willChange =
+								"transform, opacity, clip-path";
+
+							const currentTop = r * cH;
+							const currentLeft = c * cW;
+							clone.style.clipPath = `inset(${currentTop}px ${rect.width - (currentLeft + cW)}px ${rect.height - (currentTop + cH)}px ${currentLeft}px)`;
+
+							gridContainer.appendChild(clone);
+							cells.push(clone);
+						}
+					}
+					document.body.appendChild(gridContainer);
+
+					gsap.fromTo(
+						cells,
+						{
+							scale: 0.5,
+							opacity: 0,
+							x: -window.innerWidth * 0.3,
+							y: window.innerHeight * 0.3,
+						},
+						{
+							scale: 1,
+							opacity: 1,
+							x: 0,
+							y: 0,
+							duration: 0.6, // Accelerated entrance velocity
+							stagger: {
+								amount: 0.25,
+								grid: [gridRes, gridRes],
+								from: (gridRes - 1) * gridRes,
+							}, // Accelerated ripple wave propagating quicker
+							ease: "expo.out",
+							clearProps: "all",
+							onComplete: () => {
+								el.style.opacity = "1";
+								gridContainer.remove();
+							},
+						},
+					);
+				}
+
+				// Mobile Menu Toggle Logic
+				const menuBtn = document.querySelector(".mobile-menu-btn");
+				const mobileMenu = document.querySelector(
+					".mobile-menu-overlay",
+				);
+				const body = document.body;
+
+				if (menuBtn && mobileMenu) {
+					menuBtn.addEventListener("click", () => {
+						menuBtn.classList.toggle("active");
+						mobileMenu.classList.toggle("active");
+						// Prevent physical body scrolling while overlay is open
+						body.style.overflow =
+							body.style.overflow === "hidden" ? "" : "hidden";
+					});
+
+					// Automatically close the menu gracefully when clicking any navigational link
+					const mobileLinks = document.querySelectorAll(
+						".mobile-nav-links a",
+					);
+					mobileLinks.forEach((link) => {
+						link.addEventListener("click", () => {
+							menuBtn.classList.remove("active");
+							mobileMenu.classList.remove("active");
+							body.style.overflow = "";
+						});
+					});
+
+					// Dynamically purge the active mobile modal state and restore document scroll flow if the window is forcefully dragged back to desktop dimensions!
+					window.addEventListener("resize", () => {
+						if (
+							window.innerWidth > 670 &&
+							mobileMenu.classList.contains("active")
+						) {
+							menuBtn.classList.remove("active");
+							mobileMenu.classList.remove("active");
+							body.style.overflow = "";
+						}
+					});
+				}
+
+				// Global Particles Initialization
+				// Prevents duplicate particle canvases when Astro routes using SPA transition:persist!
+				const particlesContainer =
+					document.getElementById("particles-js");
+				// @ts-ignore
+				if (
+					window.particlesJS &&
+					particlesContainer &&
+					!particlesContainer.querySelector(".particles-js-canvas-el")
+				) {
+					// @ts-ignore
+					window.particlesJS("particles-js", {
+						particles: {
+							number: { value: 45 },
+							color: { value: "random" },
+							shape: { type: "star" },
+							opacity: { value: 0.8, random: true },
+							size: { value: 3.5, random: true },
+							line_linked: {
+								enable: true,
+								distance: 150,
+								color: "#ffffff",
+								opacity: 0.3,
+								width: 1,
+							},
+							move: {
+								enable: true,
+								speed: 1.2,
+								direction: "none",
+								random: false,
+								straight: false,
+								out_mode: "out",
+								attract: {
+									enable: false,
+									rotateX: 3000,
+									rotateY: 3000,
+								},
+							},
+						},
+						interactivity: {
+							detect_on: "window",
+							events: {
+								onhover: { enable: true, mode: "grab" },
+								onclick: { enable: true, mode: "push" },
+								resize: true,
+							},
+							modes: {
+								grab: {
+									distance: 170,
+									line_linked: { opacity: 0.7 },
+								},
+								push: { particles_nb: 3 },
+								remove: { particles_nb: 2 },
+							},
+						},
+						retina_detect: true,
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--bg-color: #0d1117;
+		--text-color: #ffffff;
+		--muted-color: rgba(
+			255,
+			255,
+			255,
+			0.85
+		); /* Pure white with soft hierarchy */
+		--accent-color: #c084fc;
+		--nav-height: 80px;
+	}
+
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		min-height: 100%;
+		background-color: var(--bg-color);
+		color: var(--text-color);
+		font-family: "Outfit", sans-serif;
+		overflow-x: clip; /* Safest way to hide x-overflow without breaking sticky! */
+		scroll-behavior: smooth;
+	}
+
+	#particles-js {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		pointer-events: none; /* Let clicks pass through globally */
+	}
+
+	.navbar,
+	#main-content {
+		position: relative;
+		z-index: 10;
+	}
+
+	/* 
+		Kill Native Astro View Transition morphological crossfades universally.
+		This guarantees our GSAP DOM Slicer relies exclusively on explicit math rendering pipelines,
+		eliminating any overlapping native framework 'snapshots' creating double ghost imagery.
+	*/
+	::view-transition-group(root),
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none !important;
+		opacity: 1 !important;
+		mix-blend-mode: normal !important;
+	}
+
+	/* Global Element Typography Overrides (from React site) */
+	.heading-1,
+	.heading-2,
+	.subtitle,
+	.typewrite,
+	.btn {
+		font-family: "Merienda", cursive !important;
+	}
+
+	/* Navigation Bar Restored from React */
+	.navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: var(--nav-height);
+		z-index: 1000;
+		background: linear-gradient(
+			to bottom,
+			rgba(13, 17, 23, 0.8),
+			rgba(13, 17, 23, 0.2)
+		);
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
+	}
+
+	.nav-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+		padding: 0 4rem;
+		max-width: 1600px; /* Matched to the React site's widened container */
+		margin: 0 auto;
+	}
+
+	.brand-logo img {
+		height: 45px;
+		display: block;
+	}
+
+	/* The Tangerine Links with bottom gradient animation */
+	.nav-links {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		gap: 1.5rem;
+	}
+
+	.nav-links a {
+		position: relative;
+		padding: 0 15px;
+		font-family: "Tangerine", cursive;
+		font-size: 2.2rem; /* Tangerine runs very small, so we bump the size up */
+		color: var(--text-color);
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.nav-links a::after {
+		content: "";
+		position: absolute;
+		bottom: 5px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 0;
+		height: 3px;
+		background: linear-gradient(90deg, #818cf8, #c084fc);
+		transition: width 0.3s ease;
+		border-radius: 2px;
+	}
+
+	.nav-links a:hover::after {
+		width: 80%;
+	}
+
+	.nav-links a:hover {
+		color: #fff;
+	}
+
+	#main-content {
+		padding-top: calc(var(--nav-height));
+		min-height: 100vh;
+		box-sizing: border-box;
+		display: block; /* Pure block layout ensures sticky functions perfectly */
+	}
+
+	/* Utility Classes for Typography */
+	.heading-1 {
+		font-size: clamp(3rem, 8vw, 6rem);
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.04em;
+		margin: 0;
+	}
+
+	.heading-2 {
+		font-size: clamp(2rem, 5vw, 4rem);
+		font-weight: 600;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+		margin: 0;
+	}
+
+	.text-muted {
+		color: var(--muted-color);
+		font-size: 1.25rem;
+		line-height: 1.6;
+		max-width: 600px;
+	}
+
+	.container {
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 4rem;
+		box-sizing: border-box;
+	}
+
+	/* Mobile Menu Styles */
+	.mobile-menu-btn {
+		display: none; /* Hidden by default on desktop viewports */
+		background: none;
+		border: none;
+		cursor: pointer;
+		position: relative;
+		z-index: 1002;
+		width: 32px;
+		height: 24px;
+		padding: 0;
+		outline: none;
+	}
+
+	.hamburger-line {
+		display: block;
+		width: 100%;
+		height: 2.5px;
+		background-color: var(--text-color);
+		position: absolute;
+		left: 0;
+		transition:
+			transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.4s ease,
+			top 0.4s ease,
+			background-color 0.3s ease;
+		border-radius: 4px;
+	}
+
+	.hamburger-line:nth-child(1) {
+		top: 0;
+	}
+	.hamburger-line:nth-child(2) {
+		top: 10px;
+	}
+	.hamburger-line:nth-child(3) {
+		top: 20px;
+	}
+
+	/* Active X State Animation */
+	.mobile-menu-btn.active .hamburger-line:nth-child(1) {
+		top: 10px;
+		transform: rotate(45deg);
+		background-color: var(--accent-color);
+	}
+	.mobile-menu-btn.active .hamburger-line:nth-child(2) {
+		opacity: 0;
+		transform: translateX(-15px);
+	}
+	.mobile-menu-btn.active .hamburger-line:nth-child(3) {
+		top: 10px;
+		transform: rotate(-45deg);
+		background-color: var(--accent-color);
+	}
+
+	/* Overlay Background Definition */
+	.mobile-menu-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(13, 17, 23, 0.96);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		z-index: 999; /* Renders strictly below the dynamic navbar layer (1000) so the X-menu toggle and Logo remain interactable above the blur */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.4s ease,
+			visibility 0.4s ease;
+	}
+
+	.mobile-menu-overlay.active {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.mobile-nav-links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+	}
+
+	.mobile-nav-links a {
+		font-family: "Tangerine", cursive;
+		font-size: 4.5rem; /* Massive elegant menu font */
+		color: var(--text-color);
+		text-decoration: none;
+		opacity: 0;
+		transform: translateY(25px);
+		transition:
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			color 0.3s ease;
+		display: inline-block;
+	}
+
+	.mobile-nav-links a:hover {
+		color: var(--accent-color);
+	}
+
+	/* Staggered mathematical entrance pop for mobile links */
+	.mobile-menu-overlay.active .mobile-nav-links li:nth-child(1) a {
+		opacity: 1;
+		transform: translateY(0);
+		transition-delay: 0.1s;
+	}
+	.mobile-menu-overlay.active .mobile-nav-links li:nth-child(2) a {
+		opacity: 1;
+		transform: translateY(0);
+		transition-delay: 0.2s;
+	}
+	.mobile-menu-overlay.active .mobile-nav-links li:nth-child(3) a {
+		opacity: 1;
+		transform: translateY(0);
+		transition-delay: 0.3s;
+	}
+	.mobile-menu-overlay.active .mobile-nav-links li:nth-child(4) a {
+		opacity: 1;
+		transform: translateY(0);
+		transition-delay: 0.4s;
+	}
+
+	@media screen and (max-width: 670px) {
+		.hide-on-mobile {
+			display: none;
+		}
+		.nav-container {
+			padding: 0 2rem;
+		}
+		.mobile-menu-btn {
+			display: block; /* Reveals toggle securely on compact hardware viewports */
+		}
+	}
+</style>

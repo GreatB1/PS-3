@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact">
+	<div class="page-container">
+		<div class="container">
+			<h1 class="heading-2 page-title">Let's Connect.</h1>
+			
+			<div class="contact-content">
+				<p class="text-muted" style="margin-bottom: 3rem; max-width: 500px;">
+                    I'm currently exploring new opportunities inside and outside of tech. Feel free to reach out—I'd love to chat.
+                </p>
+				
+                <div class="contact-methods">
+                    <a href="mailto:fb2407@nyu.edu" class="contact-card">
+                        <div class="icon">✉️</div>
+                        <div class="details">
+                            <span class="label">Email</span>
+                            <span class="value">fb2407@nyu.edu</span>
+                        </div>
+                    </a>
+
+                    <a href="https://linkedin.com/in/flevin-baraka" target="_blank" class="contact-card">
+                        <div class="icon">💻</div>
+                        <div class="details">
+                            <span class="label">LinkedIn</span>
+                            <span class="value">/in/flevin-baraka</span>
+                        </div>
+                    </a>
+
+                    <div class="contact-card static">
+                        <div class="icon">📍</div>
+                        <div class="details">
+                            <span class="label">Location</span>
+                            <span class="value">Abu Dhabi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider">or send a message below</div>
+
+				<form class="contact-form">
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" id="name" placeholder="John Doe" />
+					</div>
+					
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" id="email" placeholder="john@example.com" />
+					</div>
+					
+					<div class="form-group">
+						<label for="message">Message</label>
+						<textarea id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+					</div>
+					
+					<button type="button" class="btn primary submit-btn">Send Message</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.page-container {
+		padding: 6rem 0;
+	}
+
+	.page-title {
+		margin-bottom: 2rem;
+	}
+
+	.contact-content {
+		max-width: 600px;
+	}
+
+    .contact-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .contact-card {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px;
+        text-decoration: none;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .contact-card:not(.static):hover {
+        transform: translateX(10px);
+        background: rgba(255,255,255,0.06);
+    }
+
+    .icon {
+        font-size: 1.5rem;
+    }
+
+    .details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .label {
+        font-size: 0.85rem;
+        color: var(--muted-color);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .value {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .divider {
+        margin: 4rem 0;
+        text-align: center;
+        color: var(--muted-color);
+        font-size: 0.9rem;
+        position: relative;
+    }
+
+    .divider::before, .divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 30%;
+        height: 1px;
+        background: rgba(255,255,255,0.1);
+    }
+
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.8rem;
+	}
+
+	label {
+		color: var(--muted-color);
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	input, textarea {
+		background: transparent;
+		border: none;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+		padding: 1rem 0;
+		color: var(--text-color);
+		font-size: 1.2rem;
+		font-family: inherit;
+		outline: none;
+		transition: border-color 0.3s ease;
+	}
+
+	input::placeholder, textarea::placeholder {
+		color: rgba(255, 255, 255, 0.1);
+	}
+
+	input:focus, textarea:focus {
+		border-bottom-color: var(--text-color);
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	.submit-btn {
+		align-self: flex-start;
+		margin-top: 1rem;
+		background: var(--text-color);
+		color: var(--bg-color);
+		padding: 1.2rem 3rem;
+		border-radius: 100px;
+		font-size: 1.1rem;
+		font-weight: 500;
+		border: none;
+		cursor: pointer;
+		transition: transform 0.3s ease;
+	}
+
+	.submit-btn:hover {
+		transform: translateY(-2px);
+	}
+</style>

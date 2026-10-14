@@ -1,0 +1,771 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Home">
+	<!-- React-Style Hero Section (Fixed for Parallax Cover) -->
+
+	<!-- React-Style Hero Section -->
+	<section class="hero-section">
+		<div class="container hero-grid">
+			<div class="hero-text-col gs-reveal">
+				<h1 class="heading-1">Hi, I'm<br />Flevin Baraka</h1>
+				<h2 class="heading-2 subtitle">
+					I am a <span class="typewrite"
+						><span class="wrap"></span></span
+					><span class="cursor-blink"></span>
+				</h2>
+
+				<div class="cta-group">
+					<a href="/portfolio" class="btn primary pulse"
+						>View My Work</a
+					>
+				</div>
+			</div>
+
+			<div class="hero-image-col gs-reveal hide-on-mobile">
+				<div class="hero-image-wrapper">
+					<img
+						src="/images/hero-new.jpg"
+						alt="Flevin Baraka"
+						class="hero-img"
+						onerror="this.src='https://via.placeholder.com/400x500/1a1a1a/fafafa?text=Photo'"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<div class="scroll-down icon gs-reveal">↓</div>
+	</section>
+
+	<!-- About Overview Section -->
+	<section id="about" class="about-section">
+		<div class="progress-wave-divider">
+			<svg
+				class="progress-wave-svg"
+				viewBox="0 0 1200 120"
+				preserveAspectRatio="none"
+			>
+				<defs>
+					<linearGradient
+						id="wave-gradient"
+						x1="0%"
+						y1="0%"
+						x2="0%"
+						y2="100%"
+					>
+						<stop offset="0%" stop-color="#0f172a"></stop>
+						<!-- Slate Indigo top -->
+						<stop offset="100%" stop-color="#1e1b4b"></stop>
+						<!-- Deep Purple Indigo bottom -->
+					</linearGradient>
+				</defs>
+				<!-- Milder Linear Quadratic Wave perfectly maps Cartesian geometry! -->
+				<path
+					d="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60 T750,60 T900,60 T1050,60 T1200,60 L1200,121 L0,121 Z"
+					fill="url(#wave-gradient)"></path>
+			</svg>
+
+			<!-- Interactive Scroll Boat -->
+			<div class="boat-container">
+				<svg
+					class="boat-svg"
+					viewBox="0 0 64 64"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path d="M32 18L14 42H32V18Z" fill="#22D3EE"></path>
+					<!-- Cyan Sail -->
+					<path d="M32 18L46 42H32V18Z" fill="#818CF8"></path>
+					<!-- Indigo Sail -->
+					<path d="M10 42L32 52L54 42L32 46L10 42Z" fill="#F97316"
+					></path>
+					<!-- Vibrant Orange Hull -->
+				</svg>
+			</div>
+		</div>
+		<div class="container">
+			<div class="about-grid">
+				<!-- Left Column: Biography -->
+				<div class="about-text gs-reveal">
+					<h2 class="heading-2" style="margin-bottom: 1.5rem;">
+						Brief About Me
+					</h2>
+					<p class="text-muted" style="font-size: 1.25rem;">
+						I’m a mechanical engineer and visual thinker who loves
+						turning ideas into precise designs and memorable
+						visuals. From bioprinters to bridge models, I enjoy
+						building things that work well and look good.
+					</p>
+					<a
+						href="/about"
+						class="btn secondary"
+						style="margin-top: 2rem;">Read Full Bio &rarr;</a
+					>
+				</div>
+
+				<!-- Right Column: Snapshot Card -->
+				<div class="snapshot-card gs-reveal">
+					<div class="card-glow"></div>
+					<div class="card-content">
+						<h3
+							style="margin-top: 0; font-family: 'Merienda', cursive; color: var(--text-color);"
+						>
+							Snapshot
+						</h3>
+						<ul class="text-muted">
+							<li>
+								• Designing mechanical systems with both
+								function and form in mind.
+							</li>
+							<li>
+								• Creating clean, modern visuals for
+								presentations and brands.
+							</li>
+							<li>
+								• Building precise CAD models that bring
+								concepts to life.
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Lower Full-Width Perimeter: Skills Marquee -->
+			<div class="skills-showcase gs-reveal" style="margin-top: 5rem;">
+				<div class="skills-lane">
+					<div class="skills-track move-left">
+						<span class="skill-pill tech">CAD Modeling</span>
+						<span class="skill-pill tech"
+							>Mechanical Fabrication</span
+						>
+						<span class="skill-pill tech">Data Analysis</span>
+						<span class="skill-pill tech">3D Printing</span>
+						<span class="skill-pill tech">Python</span>
+						<span class="skill-pill tech">CAD Modeling</span>
+						<span class="skill-pill tech"
+							>Mechanical Fabrication</span
+						>
+						<span class="skill-pill tech">Data Analysis</span>
+						<span class="skill-pill tech">3D Printing</span>
+						<span class="skill-pill tech">Python</span>
+					</div>
+				</div>
+				<div class="skills-lane">
+					<div class="skills-track move-right">
+						<span class="skill-pill tools">Google Suite</span>
+						<span class="skill-pill tools">Canva</span>
+						<span class="skill-pill tools">Solidworks</span>
+						<span class="skill-pill tools">Bricklink Studio</span>
+						<span class="skill-pill tools">Google Suite</span>
+						<span class="skill-pill tools">Canva</span>
+						<span class="skill-pill tools">Solidworks</span>
+						<span class="skill-pill tools">Bricklink Studio</span>
+					</div>
+				</div>
+				<div class="skills-lane">
+					<div class="skills-track move-left slow">
+						<span class="skill-pill soft">Leadership</span>
+						<span class="skill-pill soft">Analytical Thinking</span>
+						<span class="skill-pill soft">Problem Solving</span>
+						<span class="skill-pill soft">Adaptability</span>
+						<span class="skill-pill soft">Leadership</span>
+						<span class="skill-pill soft">Analytical Thinking</span>
+						<span class="skill-pill soft">Problem Solving</span>
+						<span class="skill-pill soft">Adaptability</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	/* Hero Styles */
+
+	/* Hero Styles */
+	.hero-section {
+		height: calc(100vh - var(--nav-height));
+		display: flex;
+		align-items: center;
+		position: sticky; /* This effortlessly stops the Hero mid-scroll! */
+		top: var(--nav-height);
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	.container {
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 4rem;
+		box-sizing: border-box;
+	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 3fr 2fr;
+		gap: 2rem;
+		align-items: center;
+		pointer-events: none; /* Let events passthrough to particles */
+	}
+
+	.hero-text-col {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	}
+
+	.heading-1 {
+		font-size: clamp(3rem, 6vw, 5rem);
+		font-weight: 700;
+		line-height: 1.1;
+		margin: 0;
+		color: #fff;
+	}
+
+	.subtitle {
+		font-size: clamp(1.5rem, 3vw, 2rem);
+		font-weight: 300;
+		margin: 0;
+		color: #fff;
+		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+	}
+
+	.typewrite > .wrap {
+		border-right: 0.08em solid #fff;
+		padding-right: 2px;
+	}
+
+	.cursor-blink {
+		animation: blink 0.8s infinite;
+	}
+
+	@keyframes blink {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+	}
+
+	.cta-group {
+		margin-top: 2rem;
+		pointer-events: auto; /* Reactivate clicks just for buttons! */
+	}
+
+	.btn {
+		padding: 1.2rem 2.5rem;
+		border-radius: 100px;
+		font-weight: 600;
+		text-decoration: none;
+		letter-spacing: 0.05em;
+		transition: all 0.3s ease;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		cursor: pointer;
+	}
+
+	.btn.primary {
+		background: #1a237e; /* indigo darken-4 from React */
+		color: #fff;
+		box-shadow: 0 4px 15px rgba(26, 35, 126, 0.4);
+	}
+
+	.btn.primary:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 8px 25px rgba(26, 35, 126, 0.6);
+	}
+
+	.pulse {
+		animation: pulse-animation 2s infinite;
+	}
+
+	@keyframes pulse-animation {
+		0% {
+			box-shadow: 0 0 0 0 rgba(26, 35, 126, 0.7);
+		}
+		70% {
+			box-shadow: 0 0 0 10px rgba(26, 35, 126, 0);
+		}
+		100% {
+			box-shadow: 0 0 0 0 rgba(26, 35, 126, 0);
+		}
+	}
+
+	.hero-image-col {
+		position: relative;
+		pointer-events: none; /* Pass clicks to particles */
+		display: flex;
+		justify-content: center;
+	}
+
+	.hero-image-wrapper {
+		pointer-events: auto; /* Re-enable mouse interactions for the image */
+		/* perspective: 1000px; Temporarily stripped explicit Z-bounds natively testing hardware culling! */
+	}
+
+	.hero-img {
+		width: 95%;
+		border-radius: 20px;
+		object-fit: cover;
+		max-height: 600px;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+		/* Temporarily stripped native GPU Masks completely dynamically checking root flat transition renders explicitly! */
+		/* -webkit-mask-image: radial-gradient(
+			ellipse at center,
+			rgba(0, 0, 0, 1) 65%,
+			rgba(0, 0, 0, 0) 100%
+		);
+		mask-image: radial-gradient(
+			ellipse at center,
+			rgba(0, 0, 0, 1) 65%,
+			rgba(0, 0, 0, 0) 100%
+		); */
+		transition: box-shadow 0.4s ease;
+	}
+
+	.hero-image-wrapper:hover .hero-img {
+		box-shadow: 0 20px 50px rgba(129, 140, 248, 0.3); /* Adds an indigo glow on hover */
+	}
+
+	.scroll-down {
+		position: absolute;
+		bottom: 30px;
+		left: 50%;
+		transform: translateX(-50%);
+		font-size: 2rem;
+		animation: bounce 2s infinite;
+		color: #fff;
+	}
+
+	@keyframes bounce {
+		0%,
+		20%,
+		50%,
+		80%,
+		100% {
+			transform: translateY(0) translateX(-50%);
+		}
+		40% {
+			transform: translateY(-15px) translateX(-50%);
+		}
+		60% {
+			transform: translateY(-7px) translateX(-50%);
+		}
+	}
+
+	@media (max-width: 900px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+		.hide-on-mobile {
+			display: none;
+		}
+		.cta-group {
+			justify-content: center;
+		}
+		.hero-section {
+			padding-top: 4rem;
+		}
+		.about-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* About Section Extracted from React */
+	.about-section {
+		padding: 8rem 0;
+		margin-top: 120px; /* Forces the entire section down underneath the Hero boundary so the 120px wave stops covering the bottom of the Hero header */
+		background: linear-gradient(
+			to bottom,
+			#1e1b4b,
+			var(--bg-color)
+		); /* Flawlessly continues the gradient downward from the wave */
+		position: relative;
+		z-index: 2; /* Slides above the sticky hero naturally as you scroll down */
+	}
+
+	/* Wavy Border Progress Divider */
+	.progress-wave-divider {
+		position: absolute;
+		top: -119px; /* Rises exactly above the literal flat border of the container */
+		left: 0;
+		width: 100vw;
+		height: 120px;
+		overflow: visible; /* Crucial: Allows the boat's mast to cleanly project above the 120px box */
+		line-height: 0;
+		pointer-events: none;
+	}
+
+	.progress-wave-svg {
+		display: block;
+		position: absolute;
+		bottom: 0;
+		width: 230vw; /* Perfect mathematical anchor binding exactly 2x proportional linear GSAP traversal vector mapping */
+		height: 100%;
+		transform-origin: bottom;
+	}
+
+	.boat-container {
+		position: absolute;
+		bottom: 46px; /* Driven securely into mathematical center guaranteeing complete submersion of the hull padding at all bounds */
+		left: -45px; /* Permanently tucked securely outside the viewport constraints exactly hiding passive visual rendering sequences */
+		width: 45px;
+		height: 45px;
+		z-index: 3;
+		pointer-events: none;
+	}
+
+	.boat-svg {
+		width: 100%;
+		height: 100%;
+		filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.5));
+		transform-origin: center bottom;
+		animation: bobbing 3.5s ease-in-out infinite;
+	}
+
+	@keyframes bobbing {
+		0% {
+			transform: translateY(2px) rotate(-6deg); /* Sinks organically into the wave */
+		}
+		50% {
+			transform: translateY(-2px) rotate(6deg); /* Lifts gently */
+		}
+		100% {
+			transform: translateY(2px) rotate(-6deg);
+		}
+	}
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: 6rem;
+		align-items: center;
+	}
+
+	.snapshot-card {
+		position: relative;
+		margin-top: 0; /* Reset since it's no longer forced under a paragraph */
+		border-radius: 16px;
+		background: rgba(25, 25, 35, 0.4);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		padding: 2px;
+		overflow: hidden;
+	}
+
+	.snapshot-card .card-glow {
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: conic-gradient(
+			transparent,
+			rgba(129, 140, 248, 0.4),
+			transparent 30%
+		);
+		animation: rotateGlow 6s linear infinite;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+
+	.snapshot-card:hover .card-glow {
+		opacity: 1;
+	}
+
+	.snapshot-card .card-content {
+		position: relative;
+		background: var(--bg-color);
+		border-radius: 14px;
+		padding: 2rem;
+		z-index: 1;
+	}
+
+	.snapshot-card ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	/* Skills Marquee / Lanes from React */
+	.skills-showcase {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Fade mask for marquee edges using body bg color */
+	.skills-showcase::before,
+	.skills-showcase::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 80px;
+		z-index: 2;
+		pointer-events: none;
+	}
+	.skills-showcase::before {
+		left: 0;
+		background: linear-gradient(to right, var(--bg-color), transparent);
+	}
+	.skills-showcase::after {
+		right: 0;
+		background: linear-gradient(to left, var(--bg-color), transparent);
+	}
+
+	.skills-lane {
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.skills-track {
+		display: inline-flex;
+		gap: 1.2rem;
+		width: max-content; /* Ensure track wraps exactly its actual span sizes */
+	}
+
+	.move-left {
+		animation: scrollLeft 35s linear infinite;
+	}
+	.move-right {
+		animation: scrollRight 35s linear infinite;
+	}
+	.slow {
+		animation-duration: 45s;
+	}
+
+	@keyframes scrollLeft {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
+	}
+	@keyframes scrollRight {
+		0% {
+			transform: translateX(-50%);
+		}
+		100% {
+			transform: translateX(0);
+		}
+	}
+	@keyframes rotateGlow {
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	.skill-pill {
+		padding: 0.8rem 1.8rem;
+		border-radius: 100px;
+		font-family: inherit;
+		font-weight: 500;
+		font-size: 1rem;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		color: #ffffff;
+	}
+
+	/* The exact custom border colors for the lanes from the React site */
+	.skill-pill.tech {
+		border-color: rgba(129, 140, 248, 0.4);
+	} /* Indigo */
+	.skill-pill.tools {
+		border-color: rgba(34, 211, 238, 0.4);
+	} /* Cyan */
+	.skill-pill.soft {
+		border-color: rgba(249, 115, 22, 0.4);
+	} /* Orange */
+</style>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+	document.addEventListener("astro:page-load", () => {
+		gsap.registerPlugin(ScrollTrigger);
+
+		const mainContent = document.getElementById("main-content");
+		if (!mainContent) return;
+
+		// 1. Typewriter Effect Logic (Vanilla JS)
+		const words = [
+			"Mechanical Engineer",
+			"Graphic Designer",
+			"CAD Designer",
+		];
+		let wordIndex = 0;
+		let charIndex = 0;
+		let isDeleting = false;
+		const typeSpeed = 100;
+		const deleteSpeed = 30;
+		const pauseTime = 2000;
+		const textElement = mainContent.querySelector(".typewrite .wrap");
+		let typeTimeout: any;
+
+		function type() {
+			if (!textElement) return;
+
+			const currentWord = words[wordIndex % words.length];
+
+			if (isDeleting) {
+				textElement.textContent = currentWord.substring(
+					0,
+					charIndex - 1,
+				);
+				charIndex--;
+			} else {
+				textElement.textContent = currentWord.substring(
+					0,
+					charIndex + 1,
+				);
+				charIndex++;
+			}
+
+			let delay = isDeleting ? deleteSpeed : typeSpeed;
+
+			if (!isDeleting && charIndex === currentWord.length) {
+				delay = pauseTime; // Pause at end of word
+				isDeleting = true;
+			} else if (isDeleting && charIndex === 0) {
+				isDeleting = false;
+				wordIndex++;
+				delay = 500; // Pause before new word
+			}
+
+			typeTimeout = setTimeout(type, delay);
+		}
+
+		if (textElement) {
+			clearTimeout(typeTimeout);
+			type();
+		}
+
+		// 2. GSAP Content Reveal Triggered on Scroll
+		const revealElements = mainContent.querySelectorAll(".gs-reveal");
+		revealElements.forEach((el) => {
+			gsap.fromTo(
+				el,
+				{ opacity: 0, y: 30 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 1.2,
+					ease: "power3.out",
+					scrollTrigger: {
+						trigger: el,
+						start: "top 85%", // Trigger animation when element enters bottom of screen
+						toggleActions: "play none none none",
+					},
+				},
+			);
+		});
+
+		// 3. Mathematical Wave Scroll Progress Parallax Effect
+		gsap.to(mainContent.querySelectorAll(".progress-wave-svg"), {
+			xPercent:
+				-50 /* Pans linearly through exactly half the oversized SVG to construct seamlessly repeating effect */,
+			ease: "none",
+			scrollTrigger: {
+				trigger: mainContent.querySelector(".about-section"),
+				start: "top-=30 bottom", // Pre-computes roughly 30px of vertical vector intersection masking the native off-screen horizon sweep entirely fluidly
+				end: "top 80px", // Wraps up exactly when the wave natively locks parallel against the 80px top navbar limit
+				scrub: 0.5, // Engages extremely smooth interpolated timeline scrubbing
+			},
+		});
+
+		// 4. Parallax Boat Sailing Effect synchronized flawlessly with the Bezier SVG curve matrix
+		let boatTl = gsap.timeline({
+			scrollTrigger: {
+				trigger: mainContent.querySelector(".about-section"),
+				start: "top-=30 bottom", // Synchronizes structurally masking roughly 50px of implicit mechanical travel
+				end: "top 80px", // Identical finish boundary mathematically syncing completion vector directly to navbar
+				scrub: 0.5,
+			},
+		});
+
+		gsap.set(mainContent.querySelectorAll(".boat-container"), { y: 0, rotation: 11 }); // Exact mathematical max slope coefficient for the t=0 Q derivative
+
+		// Horizontal traversal exactly sweeps exactly the synchronized distance against the scrolling wave
+		boatTl.fromTo(
+			mainContent.querySelectorAll(".boat-container"),
+			{ x: "0vw" },
+			{ x: "115vw", ease: "none", duration: 1 },
+			0,
+		);
+
+		// Synchronized vertical bounding mathematically tracking SVG coordinates identically using corresponding t-squaring algorithms!
+		let yTime = 0;
+		for (let i = 0; i < 4; i++) {
+			boatTl.to(
+				mainContent.querySelectorAll(".boat-container"),
+				{ y: 20, rotation: 0, ease: "power1.out", duration: 0.0625 },
+				yTime,
+			);
+			yTime += 0.0625; // Decelerates into the absolute trough matrix flawlessly
+			boatTl.to(
+				mainContent.querySelectorAll(".boat-container"),
+				{ y: 0, rotation: -11, ease: "power1.in", duration: 0.0625 },
+				yTime,
+			);
+			yTime += 0.0625; // Accelerates linearly up the SVG climb line
+			boatTl.to(
+				mainContent.querySelectorAll(".boat-container"),
+				{ y: -20, rotation: 0, ease: "power1.out", duration: 0.0625 },
+				yTime,
+			);
+			yTime += 0.0625; // Decelerates softly into the visual peak without detaching
+			boatTl.to(
+				mainContent.querySelectorAll(".boat-container"),
+				{ y: 0, rotation: 11, ease: "power1.in", duration: 0.0625 },
+				yTime,
+			);
+			yTime += 0.0625; // Pitches organically across the inflection bounds
+		}
+
+		// 5. Interactive GSAP 3D Hover Tilt Effect for Hero Image
+		const imgWrapper = mainContent.querySelector(
+			".hero-image-wrapper",
+		) as HTMLElement;
+		const img = mainContent.querySelector(".hero-img") as HTMLElement;
+
+		if (imgWrapper && img) {
+			imgWrapper.addEventListener("mousemove", (e: MouseEvent) => {
+				const rect = imgWrapper.getBoundingClientRect();
+				// Calculate mouse position relative to the center of the image
+				const x = e.clientX - rect.left - rect.width / 2;
+				const y = e.clientY - rect.top - rect.height / 2;
+
+				gsap.to(img, {
+					rotationY: x * 0.05, // Adjust sensitivity
+					rotationX: -y * 0.05,
+					ease: "power1.out",
+					duration: 0.4,
+				});
+			});
+
+			imgWrapper.addEventListener("mouseleave", () => {
+				gsap.to(img, {
+					rotationY: 0,
+					rotationX: 0,
+					ease: "power3.out",
+					duration: 1, // Smoothly snap back to center
+				});
+			});
+		}
+	});
+</script>
